@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E. Scott — Archive</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
+
+:root {
+  --ink:    #1c1a17;
+  --page:   #f7f4ee;
+  --rule:   #ddd8ce;
+  --muted:  #7a7368;
+  --accent: #8b3a2a;
+  --warm:   #f0ebe0;
+  --t-fragment:   #8b3a2a;
+  --t-reading:    #1e3f6a;
+  --t-music:      #2a5c34;
+  --t-idea:       #8a6820;
+  --t-story:      #4a1e6a;
+  --t-connection: #1e5a5a;
+  --t-image:      #6a4a1e;
+  --t-video:      #6a1e3a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--page);
+  font-family: 'Courier Prime', 'Courier New', Courier, monospace;
+  color: var(--ink);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px 100px;
+}
+
+header {
+  padding: 44px 0 28px;
+  border-bottom: 1.5px solid var(--ink);
+  margin-bottom: 36px;
+}
+
+.site-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22pt;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.site-bio {
+  font-size: 8pt;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 12px;
+  max-width: 480px;
+}
+
+.site-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.site-link {
+  font-size: 6pt;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 0.5px solid var(--rule);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.site-link:hover { color: var(--ink); border-color: var(--ink); }
+.site-link.live  { color: var(--accent); border-color: var(--accent); }
+
+.section-label {
+  font-size: 5pt;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.entry {
+  margin-bottom: 32px;
+  padding-bottom: 28px;
+  border-bottom: 0.5px solid var(--rule);
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 0 14px;
+}
+
+.entry:last-child { border-bottom: none; }
+
+.entry-meta { padding-top: 2px; }
+
+.entry-date {
+  font-size: 6pt;
+  color: var(--muted);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.entry-date-added {
+  font-size: 5pt;
+  color: #b0aa9f;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.entry-tag {
+  display: inline-block;
+  font-size: 5pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  padding: 1.5px 4px;
+}
+
+.tag-fragment   { color: var(--t-fragment);   border: 0.5px solid var(--t-fragment);   background: #fdf5f3; }
+.tag-reading    { color: var(--t-reading);    border: 0.5px solid var(--t-reading);    background: #f3f6fc; }
+.tag-music      { color: var(--t-music);      border: 0.5px solid var(--t-music);      background: #f3faf5; }
+.tag-idea       { color: var(--t-idea);       border: 0.5px solid var(--t-idea);       background: #fdfaf3; }
+.tag-story-note { color: var(--t-story);      border: 0.5px solid var(--t-story);      background: #f8f3fd; }
+.tag-connection { color: var(--t-connection); border: 0.5px solid var(--t-connection); background: #f3fdfd; }
+.tag-image      { color: var(--t-image);      border: 0.5px solid var(--t-image);      background: #fdf8f3; }
+.tag-video      { color: var(--t-video);      border: 0.5px solid var(--t-video);      background: #fdf3f7; }
+
+.entry-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 11pt;
+  font-weight: 400;
+  line-height: 1.35;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+
+.entry-title em { font-style: italic; }
+
+.entry-body {
+  font-size: 8pt;
+  line-height: 1.8;
+  color: #3a3830;
+}
+
+.entry-placement {
+  font-size: 7.5pt;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 7px;
+  padding-left: 9px;
+  border-left: 1.5px solid var(--rule);
+  line-height: 1.75;
+}
+
+.entry-handwritten {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 10pt;
+  font-style: italic;
+  line-height: 1.7;
+  color: #3a3830;
+  padding: 10px 0 10px 12px;
+  border-left: 2px solid var(--rule);
+  white-space: pre-line;
+}
+
+.entry-img {
+  margin-top: 8px;
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border: 0.5px solid var(--rule);
+  display: block;
+}
+
+.entry-links {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.entry-link {
+  font-size: 6.5pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  transition: color 0.15s;
+}
+
+.entry-link::before { content: '→'; font-size: 7pt; color: var(--accent); }
+.entry-link:hover { color: var(--ink); }
+
+.yt-facade {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #111;
+  cursor: pointer;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.yt-facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.yt-facade:hover img { opacity: 1; }
+
+.yt-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.yt-play-btn {
+  width: 56px;
+  height: 40px;
+  background: rgba(0,0,0,0.72);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.yt-facade:hover .yt-play-btn { background: #ff0000; }
+
+.yt-play-btn svg { width: 20px; height: 20px; fill: white; margin-left: 3px; }
+
+.yt-facade iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+footer {
+  margin-top: 60px;
+  padding-top: 16px;
+  border-top: 0.5px solid var(--rule);
+  font-size: 5.5pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+footer a {
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.18em;
+  font-size: 5.5pt;
+  text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+  .entry { grid-template-columns: 1fr; }
+  .entry-meta { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+  .entry-date { white-space: normal; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-name">E. Scott</div>
+  <div class="site-bio">
+    Writer and musician. Edinburgh.<br>
+    Short fiction, fragments, ideas in progress.<br>
+    Music as Signal Source Unknown — instrumental ambient post-rock.<br>
+    This page accumulates alongside the work.
+  </div>
+  <div class="site-links">
+    <a class="site-link live" href="https://signalscott.substack.com" target="_blank">Newsletter</a>
+    <a class="site-link" href="#">Stories</a>
+    <a class="site-link live" href="https://www.youtube.com/@signalsourceunknown1631" target="_blank">Music — SSU</a>
+    <a class="site-link" href="https://spoti.fi/3rUtXoj" target="_blank">Spotify</a>
+    <a class="site-link" href="https://bit.ly/ssu_bandcamp" target="_blank">Bandcamp</a>
+  </div>
+</header>
+
+<div class="section-label">Archive · accumulating since May 2026 · reaches back further</div>
+
+<div id="archive">
+
+  <!-- VIDEO entry with YouTube facade -->
+  <div class="entry">
+    <div class="entry-meta">
+      <div class="entry-date">2022</div>
+      <div class="entry-date-added">added<br>May 2026</div>
+      <span class="entry-tag tag-video">video</span>
+    </div>
+    <div class="entry-content">
+      <div class="entry-title">Signal Source Unknown — Starless (Official Video)</div>
+      <div class="yt-facade" onclick="var f=document.createElement('iframe');f.src='https://www.youtube.com/embed/bc8sCFY019A?autoplay=1';f.allow='autoplay; fullscreen';f.allowFullscreen=true;this.innerHTML='';this.appendChild(f);">
+        <img src="https://img.youtube.com/vi/bc8sCFY019A/hqdefault.jpg" alt="Signal Source Unknown — Starless">
+        <div class="yt-play"><div class="yt-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+      </div>
+      <div class="entry-links">
+        <a class="entry-link" href="https://youtu.be/bc8sCFY019A" target="_blank">Open in YouTube</a>
+        <a class="entry-link" href="https://bit.ly/ssu_soundcloud" target="_blank">SoundCloud</a>
+        <a class="entry-link" href="https://bit.ly/ssu_bandcamp" target="_blank">Bandcamp</a>
+      </div>
+      <div class="entry-placement">The instrumental and the lyric draft — <em>Starless Night</em> — are three years apart and in exactly the same place. The instrumental arrived first, without words. The words are still being written toward what the music already knows.</div>
+    </div>
+  </div>
+
+  <!-- MUSIC entry with handwritten lyrics -->
+  <div class="entry">
+    <div class="entry-meta">
+      <div class="entry-date">May<br>2026</div>
+      <span class="entry-tag tag-music">music</span>
+    </div>
+    <div class="entry-content">
+      <div class="entry-title">Starless Night — working draft</div>
+      <div class="entry-handwritten">Can I steal your silence / Can I still your fears / Set fire to your loneliness / Drain your pool of tears / Banish all your demons / Watch them — waiting for your star to rise
+
+Can I steal your silence / On this starless starless night
+
+Search the skies for signs of life / On this starless starless night / There's a silent silent space / Beneath the screaming of the world / Where you sing your song now
+
+Let's magic darkness into light / On this starless starless night</div>
+      <div class="entry-placement">The repetition is the point — starless starless, silent silent. The second word doesn't intensify, it settles. The whole song is doing that: not more of the feeling but deeper into it.</div>
+    </div>
+  </div>
+
+  <!-- FRAGMENT entry -->
+  <div class="entry">
+    <div class="entry-meta">
+      <div class="entry-date">Apr<br>2026</div>
+      <span class="entry-tag tag-fragment">fragment</span>
+    </div>
+    <div class="entry-content">
+      <div class="entry-handwritten">Stop preparing to work. Open the file.</div>
+      <div class="entry-placement">The pattern that runs through every creative block: the system gets built, the conditions get arranged, the reading gets done. And the story doesn't get written. Resistance lives at the start threshold, not inside the work itself.</div>
+    </div>
+  </div>
+
+  <!-- READING entry -->
+  <div class="entry">
+    <div class="entry-meta">
+      <div class="entry-date">2 May<br>2026</div>
+      <span class="entry-tag tag-reading">reading</span>
+    </div>
+    <div class="entry-content">
+      <div class="entry-title"><em>Men in Love</em> — Irvine Welsh</div>
+      <div class="entry-placement">The register that is warm on the surface and something else entirely underneath. The voice does all the work the narrator can't do directly. The comedy as delivery mechanism for something much heavier — which is exactly the territory the four stories are working in.</div>
+    </div>
+  </div>
+
+  <!-- STORY NOTE entry -->
+  <div class="entry">
+    <div class="entry-meta">
+      <div class="entry-date">24 Apr<br>2026</div>
+      <span class="entry-tag tag-story-note">story note</span>
+    </div>
+    <div class="entry-content">
+      <div class="entry-title">On the defended narrator</div>
+      <div class="entry-handwritten">The italicised interior break earns its contrast only if the surface it breaks through is genuinely controlled. Keep the surface cooler than feels natural. Save all the heat for the breaks.</div>
+      <div class="entry-placement">A.L. Kennedy. The closest writer on the list to what the four stories are already doing. Same national register, same engine, same POV instrument.</div>
+    </div>
+  </div>
+
+  <!-- OLDER entry with dual date -->
+  <div class="entry">
+    <div class="entry-meta">
+      <div class="entry-date">c. 2009</div>
+      <div class="entry-date-added">added<br>May 2026</div>
+      <span class="entry-tag tag-fragment">fragment</span>
+    </div>
+    <div class="entry-content">
+      <div class="entry-title">Older notebook — placeholder</div>
+      <div class="entry-handwritten">This is where older notebook material will sit. Photograph a page, upload it, it arrives here with its original date.</div>
+      <div class="entry-placement">The gap between when something was written and when it appears here is part of the information. Written around 2009. Still not sure if this is finished or just stopped.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>E. Scott · Edinburgh</span>
+  <a href="https://signalscott.substack.com" target="_blank">signalscott.substack.com</a>
+</footer>
+
+</body>
+</html>
