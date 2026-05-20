@@ -326,7 +326,7 @@
 
   CURRENT ENTRY (recent material):
   ─────────────────────────────────
-  <div class="entry">
+  <div class="entry" id="title-here">
     <div class="entry-meta">
       <div class="entry-date">May 2026</div>
       <span class="entry-tag tag-TAGNAME">tagname</span>
@@ -340,7 +340,7 @@
 
   OLDER ENTRY (archive / retroactive — add dual date):
   ─────────────────────────────────────────────────────
-  <div class="entry">
+  <div class="entry" id="title-here">
     <div class="entry-meta">
       <div class="entry-date">2009</div>
       <div class="entry-date-added">added<br>May 2026</div>
@@ -355,7 +355,7 @@
 
   ENTRY WITH LINK (audio / video / external):
   ─────────────────────────────────────────────
-  <div class="entry">
+  <div class="entry" id="track-or-piece-title">
     <div class="entry-meta">
       <div class="entry-date">2014</div>
       <div class="entry-date-added">added<br>May 2026</div>
@@ -419,6 +419,122 @@
   .tag-wip   { color: #5a3a8a; border: 0.5px solid #5a3a8a; background: #f5f0fc; }
   .tag-draft { color: #1a5c3a; border: 0.5px solid #1a5c3a; background: #f0faf4; }
 
+
+  /* ── THREAD NAVIGATION ── */
+  .thread-nav {
+    margin: 28px 0 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .thread-nav-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-right: 4px;
+  }
+  .thread-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 0.5px solid var(--c-rule);
+    background: transparent;
+    color: var(--c-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .thread-btn:hover {
+    border-color: var(--c-ink);
+    color: var(--c-ink);
+  }
+  .thread-btn.active {
+    background: var(--c-ink);
+    border-color: var(--c-ink);
+    color: var(--c-paper);
+  }
+  .thread-btn.btn-lyrics.active   { background: #3a2a6a; border-color: #3a2a6a; }
+  .thread-btn.btn-music.active    { background: #2a4a6a; border-color: #2a4a6a; }
+  .thread-btn.btn-universe.active { background: #5a2a3a; border-color: #5a2a3a; }
+  .thread-btn.btn-stories.active  { background: #1a4a2a; border-color: #1a4a2a; }
+  .thread-btn.btn-serial.active   { background: #4a3a1a; border-color: #4a3a1a; }
+
+  .thread-dot[data-thread="lyrics"]   { background: #3a2a6a; }
+  .thread-dot[data-thread="music"]    { background: #2a4a6a; }
+  .thread-dot[data-thread="universe"] { background: #5a2a3a; }
+  .thread-dot[data-thread="stories"]  { background: #1a4a2a; }
+  .thread-dot[data-thread="serial"]   { background: #4a3a1a; }
+
+  .entry.thread-hidden { display: none; }
+
+
+  /* ── SEE ALSO LINKS ── */
+  .entry-see-also {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 0.5px solid var(--c-rule);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--c-muted);
+  }
+  .entry-see-also::before {
+    content: 'see also  ';
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .entry-see-also a {
+    color: var(--c-muted);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--c-rule);
+    margin-right: 12px;
+    transition: color 0.15s;
+  }
+  .entry-see-also a:hover {
+    color: var(--c-ink);
+    border-bottom-color: var(--c-ink);
+  }
+
+
+  /* ── OUTWARD LAYER ── */
+  .entry-outward {
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 0.5px dashed var(--c-rule);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    color: var(--c-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .entry-outward::before {
+    content: '◎';
+    font-size: 9px;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+  .entry-outward a {
+    color: var(--c-muted);
+    text-decoration: none;
+    border-bottom: 0.5px solid transparent;
+    transition: all 0.15s;
+  }
+  .entry-outward a:hover {
+    color: var(--c-ink);
+    border-bottom-color: var(--c-rule);
+  }
+  .entry-outward span {
+    color: var(--c-muted);
+  }
+
   footer {
     margin-top: 60px;
     padding-top: 16px;
@@ -450,6 +566,7 @@
     This page accumulates alongside the work.
   </div>
   <div class="site-links">
+    <a class="site-link live" href="connections.html">Connections</a>
     <a class="site-link live" href="https://signalscott.substack.com" target="_blank">Newsletter — Substack</a>
     <a class="site-link" href="#">Stories</a>
     <a class="site-link live" href="https://www.youtube.com/@signalsourceunknown1631" target="_blank">Music — SSU</a>
@@ -462,34 +579,23 @@
 <div class="section-label">Archive · accumulating since May 2026 · reaches back further</div>
 
 <div id="archive">
+
+      <div class="thread-nav">
+    <span class="thread-nav-label">threads</span>
+    <button class="thread-btn btn-all active" data-thread="all">all</button>
+    <button class="thread-btn btn-lyrics" data-thread="lyrics">lyrics &amp; poems</button>
+    <button class="thread-btn btn-music" data-thread="music">music &amp; video</button>
+    <button class="thread-btn btn-universe" data-thread="universe">cormack universe</button>
+    <button class="thread-btn btn-stories" data-thread="stories">short stories</button>
+    <button class="thread-btn btn-serial" data-thread="serial">serialisation</button>
+  </div>
   <!-- ═══ PASTE NEW ENTRIES ABOVE THIS LINE ═══ -->
 
-  <div class="entry">
-    <div class="entry-meta">
-      <div class="entry-date">11 May<br>2026</div>
-      <span class="entry-tag tag-idea">idea</span>
-    </div>
-    <div class="entry-content">
-      <div class="entry-title">Fragments that fuse into a whole</div>
-      <div class="entry-handwritten">Planned for presentation in these fragments, and yet for afterwards fusing together as an uninterrupted whole. — Dickens, on serial fiction</div>
-      <div class="entry-placement">The decision is made. <em>Evonium: The Witching Pool</em> will be serialised. Not because it is a strategy — because this is the form that fits the relationship. Each episode complete in itself. The whole still accumulating.</div>
-    </div>
-  </div>
-
-  <div class="entry">
-    <div class="entry-meta">
-      <div class="entry-date">11 May<br>2026</div>
-      <span class="entry-tag tag-idea">idea</span>
-    </div>
-    <div class="entry-content">
-      <div class="entry-title">Free. All of it.</div>
-      <div class="entry-placement">The serial will be free. No paid tier, no subscription gate. The story goes out because that is what it is for. Weir gave The Martian away on a blog to three thousand science geeks and a publisher came looking. Pistelli serialised for nothing and a press came looking. The audience is the point. The KDP edition at the end is the product. Everything before that is the relationship.</div>
-    </div>
-  </div>
-  <div class="entry">
+  <div class="entry" id="short-stories-ready-for-covers-and-forma" data-threads="stories">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="stories" title="short stories"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Short stories — ready for covers and formatting</div>
@@ -497,18 +603,21 @@
     </div>
   </div>
 
-  <div class="entry">
+  <div class="entry" id="serialisation-the-case-for-and-against" data-threads="serial">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
-      <span class="entry-tag tag-wip">wip</span>
+      <span class="entry-tag tag-story-note">story note</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="serial" title="serialisation"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Serialisation — the case for and against</div>
-      <div class="entry-placement">Full cost-benefit analysis completed May 2026. Verdict: yes to serialisation. Short stories first (June–Sep), MDM as first serial from October, Morag when the platform is ready. The sequence matters.</div>
+      <div class="entry-placement">Planning work, May 2026. Stories June–Sep. MDM from October. Morag when the platform is ready.</div>
+    
+      <div class="entry-see-also"><a href="#six-million-dollar-monkey-novel-47000-wo">Six Million Dollar Monkey</a><a href="#morag-book-one-of-three-43000-words-part">Morag</a><a href="#discovery">Discovery</a></div>
     </div>
   </div>
 
-<div class="entry">
+<div class="entry" id="your-closest-living-relatives">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-draft">draft</span>
@@ -518,7 +627,7 @@
       <div class="entry-placement">Dispatch essay. A Friday, a productivity system, a session ranking writers by engine. By evening: who was on the list?</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="the-avoiding">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-draft">draft</span>
@@ -528,7 +637,7 @@
       <div class="entry-placement">Dispatch essay. On building systems for things instead of doing the things. The Visio file. The dashboard. The notebook with documentation but no entries.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="sleepwalking-during-the-day">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-draft">draft</span>
@@ -538,7 +647,7 @@
       <div class="entry-placement">Dispatch essay. Drift is not being stuck. You're doing things — just not that thing. The sleepwalking stops. You step back across. The work waited.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="the-avoid-list">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
@@ -548,7 +657,7 @@
       <div class="entry-placement">Dispatch essay. Did the Buffett two-list exercise. Number 15 on the avoid-at-all-costs list was Substack essays. Number 16 was the music/video idea.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="what-an-idea-has-to-do-to-get-an-hour">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
@@ -558,7 +667,7 @@
       <div class="entry-placement">Dispatch essay. The music/video reading idea arrived in April. Survived days, then weeks. Still not tested. The idea is now on its third notebook.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="the-lessons-category">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
@@ -568,7 +677,7 @@
       <div class="entry-placement">Dispatch essay. The journal has a lessons category. It is very full. The most common entry, in various forms, is: stop building systems. Do the thing.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="the-finish-line">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
@@ -578,17 +687,20 @@
       <div class="entry-placement">Dispatch essay. Everything that got done had a defined endpoint. Everything still undone doesn't. A short story gets done because it's a short story. A novel doesn't.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="discovery" data-threads="serial">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="serial" title="serialisation"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Discovery</div>
-      <div class="entry-placement">Dispatch essay. In 2022 a Substack post asked: plan the novel or step into the woods? The novel was Six Million Dollar Monkey, self-published 2012, no audience. The plan was to serialize it as Discovery. The decision was made against it. The man in the hat is still in the car.</div>
+      <div class="entry-placement">Dispatch essay. In 2022 a Substack post asked: plan the novel or step into the woods? The novel was Six Million Dollar Monkey, self-published 2012. The plan was to serialise it on Substack as Discovery.</div>
+    
+      <div class="entry-see-also"><a href="#six-million-dollar-monkey-novel-47000-wo">Six Million Dollar Monkey</a><a href="#losing-or-finding-the-plot">Losing (or Finding) the Plot</a><a href="#serialisation-the-case-for-and-against">Serialisation plan</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="the-filing-system">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
@@ -598,7 +710,7 @@
       <div class="entry-placement">Dispatch essay. On the difference between organising your work and doing your work. At some point the system becomes the work. When does that happen and when is it still avoidance.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="for-later">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
@@ -608,7 +720,7 @@
       <div class="entry-placement">Dispatch or Signals essay. The LYRICS folder was made for now. It survived into later anyway. That wasn't the plan. What does it mean to make things and save them.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="the-other-room">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-wip">wip</span>
@@ -618,84 +730,12 @@
       <div class="entry-placement">Dispatch essay. The music is always happening next door to the writing. Neither one knows the other exists. Twenty-five years of making both, usually not at the same time.</div>
     </div>
   </div>
-<div class="entry">
-    <div class="entry-meta">
-      <div class="entry-date">May<br>2026</div>
-      <span class="entry-tag tag-story-note">story note</span>
-    </div>
-    <div class="entry-content">
-      <div class="entry-title">The engines — a map of who does what</div>
-      <div class="entry-body">Thirteen living writers mapped against the specific engine. The ranking reflects how much of the double mode — emotional uncanny and comic uncanny running simultaneously — each writer shares.</div>
-
-      <table class="entry-table">
-        <thead>
-          <tr>
-            <th style="width:28%">Writer</th>
-            <th style="width:8%">Match</th>
-            <th style="width:34%">Engine</th>
-            <th style="width:30%">The lesson</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="writer">Claire Keegan</span><br>Irish, b.1968</td>
-            <td><span class="pct">95%</span></td>
-            <td>Suppressed interior → object as feeling. No plot. The pressure and the gap are enough.</td>
-            <td><span class="lesson">When a story feels thin, add specificity not plot. One more exact detail.</span></td>
-          </tr>
-          <tr>
-            <td><span class="writer">Yoko Ogawa</span><br>Japanese, b.1962</td>
-            <td><span class="pct">92%</span></td>
-            <td>Matter-of-fact impossible. Object carrying weight. Individual grief → collective silence.</td>
-            <td><span class="lesson">One detail before the ending that shows the suppression is not only the narrator's.</span></td>
-          </tr>
-          <tr>
-            <td><span class="writer">A.L. Kennedy</span><br>Scottish, b.1965</td>
-            <td><span class="pct">90%</span></td>
-            <td>Closest POV match. Dark comedy as load-bearing structure. Controlled surface with something enormous pressing through it.</td>
-            <td><span class="lesson">Keep the surface cooler than feels natural. Save all the heat for the breaks.</span></td>
-          </tr>
-          <tr>
-            <td><span class="writer">Joy Williams</span><br>American, b.1944</td>
-            <td><span class="pct">88%</span></td>
-            <td>Comedy as structural delivery. The narrator describing around the wound with such precision the wound's outline becomes visible.</td>
-            <td><span class="lesson">Describe everything adjacent to what the narrator can't face. The avoidance makes the wound visible.</span></td>
-          </tr>
-          <tr>
-            <td><span class="writer">Kevin Barry</span><br>Irish, b.1969</td>
-            <td><span class="pct">86%</span></td>
-            <td>Closest comic voice match. Voice as character, defence mechanism, and delivery system. Warm on the surface, dark underneath.</td>
-            <td><span class="lesson">Read dialogue aloud. Strip to only what this specific narrator would say.</span></td>
-          </tr>
-          <tr>
-            <td><span class="writer">Neil Gaiman — Chivalry</span></td>
-            <td><span class="pct">Tier 1</span></td>
-            <td>Closest single story. Warm, practical, funny, emotionally precise. The impossible restoring dignity to ordinary life.</td>
-            <td><span class="lesson">Read this first. The double mode in its cleanest form.</span></td>
-          </tr>
-          <tr>
-            <td><span class="writer">Etgar Keret</span><br>Israeli, b.1967</td>
-            <td><span class="pct">Tier 1</span></td>
-            <td>Two-page precision. Comedy and devastation as one thing. Most efficient demonstration of the method.</td>
-            <td><span class="lesson">Read What, of This Goldfish Would You Wish? — two pages, the whole engine visible.</span></td>
-          </tr>
-          <tr>
-            <td><span class="writer">Houellebecq ⚠</span></td>
-            <td><span class="pct">—</span></td>
-            <td>The failure mode. Technique present, emotional weight absent. The narrator observes without genuinely defending against anything.</td>
-            <td><span class="lesson">Always ask: what is the narrator genuinely defending against? If nothing specific — find the wound.</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="entry-placement">King, Murakami, Banks in the background. Everyone else ranked by how close they get to the double mode.</div>
-    </div>
-  </div>
-<div class="entry">
+<div class="entry" id="signal-source-unknown-videos" data-threads="music">
     <div class="entry-meta">
       <div class="entry-date">2021–<br>present</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-video">video</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="music" title="music & video"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Signal Source Unknown — videos</div>
@@ -715,11 +755,12 @@ Wake Up Fireflies — <a href="https://youtu.be/2wyM2Pfwpdc" target="_blank">you
       </div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="reimagined-future" data-threads="lyrics music">
     <div class="entry-meta">
       <div class="entry-date">2021</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span><span class="thread-dot" data-thread="music" title="music & video"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Reimagined Future</div>
@@ -738,12 +779,15 @@ HOW IT COULD SOUND
 
 IN A REIMAGINED FUTURE</div>
       <div class="entry-placement">Autumn 2021. Written after listening to the instrumental — the words didn't arrive for a long time, just a jumble of random images. Then these.</div>
+    
+      <div class="entry-see-also"><a href="#signal-source-unknown-videos">Signal Source Unknown</a><a href="#starless-night-working-draft">Starless Night</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="worlds-apart-after-cactus-world-news" data-threads="lyrics music">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span><span class="thread-dot" data-thread="music" title="music & video"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">World's Apart — after Cactus World News</div>
@@ -759,12 +803,17 @@ From your world
 
 Apart</div>
       <div class="entry-placement">Title is Cactus World News. Lyrics are mine, written after their song.</div>
+    
+      <div class="entry-see-also"><a href="#starless-night-working-draft">Starless Night</a></div>
+    
+      <div class="entry-outward"><span>Cactus World News — World's Apart</span></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="starless-night-working-draft" data-threads="lyrics music">
     <div class="entry-meta">
       <div class="entry-date">May<br>2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span><span class="thread-dot" data-thread="music" title="music & video"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Starless Night — working draft</div>
@@ -776,12 +825,15 @@ Search the skies for signs of life / On this starless starless night / There's a
 
 Let's magic darkness into light / On this starless starless night</div>
       <div class="entry-placement">Still a working draft. The doubled words — starless starless, silent silent — are doing something. Still a working draft — there's a note at the bottom, something about where it comes from, not yet resolved.</div>
+    
+      <div class="entry-see-also"><a href="#signal-source-unknown-videos">Signal Source Unknown</a><a href="#worlds-apart-after-cactus-world-news">World's Apart</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="losing-or-finding-the-plot" data-threads="serial">
     <div class="entry-meta">
       <div class="entry-date">Sep<br>2022</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="serial" title="serialisation"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Losing (or Finding) the Plot</div>
@@ -790,12 +842,15 @@ Let's magic darkness into light / On this starless starless night</div>
         <a class="entry-link" href="https://signalscott.substack.com/p/losing-or-finding-the-plot-ea1" target="_blank">Read on Substack</a>
       </div>
       <div class="entry-placement">September 2022. The plot/discovery question is still open. The Discovery novel was being started.</div>
+    
+      <div class="entry-outward"><a href="https://www.youtube.com/watch?v=BKFVS-TLzaw" target="_blank">Cocteau Twins — Iceblink Luck ↗</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="searching-for-a-home" data-threads="serial">
     <div class="entry-meta">
       <div class="entry-date">2022</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="serial" title="serialisation"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Searching for a Home</div>
@@ -803,74 +858,92 @@ Let's magic darkness into light / On this starless starless night</div>
       <div class="entry-links">
         <a class="entry-link" href="https://signalscott.substack.com/p/searching-for-a-home" target="_blank">Read on Substack</a>
       </div>
-      <div class="entry-placement">2022. The question the Living Archive is answering, written three years before the archive existed.</div>
+      <div class="entry-placement">2022. What to do with all the creative output.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="morag-book-one-of-three-43000-words-part" data-threads="universe serial">
     <div class="entry-meta">
       <div class="entry-date">2017</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-story-note">story note</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="universe" title="cormack universe"></span><span class="thread-dot" data-thread="serial" title="serialisation"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Morag — Book One of Three (~43,000 words + Part Two)</div>
       <div class="entry-body">Alternate Scotland. Morag is an elderly wise woman who can stir the clouds with her staff. She climbs a hill at dusk speaking to her dead husband's ashes. Alex has "the mark" — the village elders want to hand them both to the Order, a religious authority with a Tome and enforcers. Blue-men rise from the water. A piper draws a beast into a cave. The girl is captured. The boy jumps from the castle ramparts into the Firth of Sorrows. Book One is complete (~43,000 words). Part Two exists (~10,000 words). The trilogy is mapped out to the end. Book One intended.</div>
-      <div class="entry-placement">2017. Evonium is Edinburgh. The Firth of Sorrows is the Firth of Forth. The shapeshifting creature in the Old Meadows Park is the same creature from Cormack and Iona. Same universe — this is the founding mythology. The opening is the best writing in the archive.</div>
+      <div class="entry-placement">2017. Complete draft. Part Two exists. Book One of a planned trilogy, mapped to the end.</div>
+    
+      <div class="entry-see-also"><a href="#faces-in-the-firth-part-one-novel">Faces in the Firth</a><a href="#the-edinburgh-novel-cormack-and-iona-unt">Cormack and Iona</a><a href="#six-million-dollar-monkey-novel-47000-wo">Six Million Dollar Monkey</a><a href="#serialisation-the-case-for-and-against">Serialisation plan</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="six-million-dollar-monkey-novel-47000-wo" data-threads="universe serial">
     <div class="entry-meta">
       <div class="entry-date">2012</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-story-note">story note</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="universe" title="cormack universe"></span><span class="thread-dot" data-thread="serial" title="serialisation"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Six Million Dollar Monkey — novel (~47,000 words)</div>
       <div class="entry-body">Edinburgh. Cormack is a temp engineer for the council, playing bass in a band called Six Million Dollar Monkey alongside Johan the feral singer and Ivor the grumpy engineer who communicates mainly in disapproving silences. A hole appears in Hanover Street that goes deeper than the city. An underground chamber with a giant monkey head carved into the altar wall. A cult called the Foundation, led by the smooth and sinister Mr Easterly, who books the band to play at their Festival of the Seed and then leads their followers into the hole. Johan goes with them. The street collapses. A letter surfaces from the bottom of the shaft addressed to Cormack. Self-published 2012. The novel that was going to become Discovery on Substack.</div>
-      <div class="entry-placement">The double mode at novel length. Ivor and Johan are the funniest double act in the archive. The hole in Hanover Street is the hole from the Cormack and Iona Edinburgh novel — same city, same universe, different Cormack.</div>
+      <div class="entry-placement">Self-published 2012. The novel that was going to become Discovery on Substack.</div>
+    
+      <div class="entry-see-also"><a href="#faces-in-the-firth-part-one-novel">Faces in the Firth</a><a href="#the-edinburgh-novel-cormack-and-iona-unt">Cormack and Iona</a><a href="#morag-book-one-of-three-43000-words-part">Morag</a><a href="#serialisation-the-case-for-and-against">Serialisation plan</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="the-edinburgh-novel-cormack-and-iona-unt" data-threads="universe serial">
     <div class="entry-meta">
       <div class="entry-date">c. 2003–<br>2005</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-story-note">story note</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="universe" title="cormack universe"></span><span class="thread-dot" data-thread="serial" title="serialisation"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">The Edinburgh novel — Cormack and Iona (untitled, 2 parts)</div>
       <div class="entry-body">Edinburgh. The city has walls, watchtowers, air patrols and border guards to contain creatures from the Highlands. Cormack and Iona watch a trap set in a churchyard at midnight. Something has breached the defences. In the Meadows, a shapeshifting creature — bird into tiger-shark — stalks a woman through the deserted park. An event called "the accident" changed everything. Authority figures control information about the Highland inhabitants. A mythology of containment and breach. 38,000 words across two parts.</div>
-      <div class="entry-placement">Edinburgh. Cormack and Iona's hunter father is in a coma on an island. Shapeshifting creatures are threatening the city. The Cormack here is the same Cormack who narrates Six Million Dollar Monkey — same character, same universe, different register.</div>
+      <div class="entry-placement">Edinburgh. Two parts, around 38,000 words.</div>
+    
+      <div class="entry-see-also"><a href="#faces-in-the-firth-part-one-novel">Faces in the Firth</a><a href="#six-million-dollar-monkey-novel-47000-wo">Six Million Dollar Monkey</a><a href="#morag-book-one-of-three-43000-words-part">Morag</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="alex-novel-opening-3-chapters" data-threads="universe">
     <div class="entry-meta">
       <div class="entry-date">undated</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-story-note">story note</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="universe" title="cormack universe"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Alex — novel opening (3 chapters)</div>
       <div class="entry-body">Alex is stuck behind four caravans at 16mph. A lorry driver he imagines as an amorous silverback gorilla. A pile-up involving rabbits. His gran Morag keeps ending up in the Firth. Bernie at work asks too many questions. Morag has a detailed theory about big cats attacking pensioners outside the post office on a Wednesday.</div>
-      <div class="entry-placement">The Morag character is the same name as the Wednesday novel. This might be where she came from.</div>
+      <div class="entry-placement">Comic fiction. Undated.</div>
+    
+      <div class="entry-see-also"><a href="#morag-book-one-of-three-43000-words-part">Morag</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="faces-in-the-firth-part-one-novel" data-threads="universe">
     <div class="entry-meta">
       <div class="entry-date">Nov<br>2001</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-story-note">story note</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="universe" title="cormack universe"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Faces in the Firth — Part One (novel)</div>
       <div class="entry-body">North Kessock. A village on the Firth north of Inverness. Sandy Morrison dies on the same day his daughter is born — crushed by a Highland cow dropped from a helicopter while the Wonder Stuff play on his car radio. He becomes a ghost lying on the Firth bed to find peace. His eight-year-old stepdaughter Alex Anderson has prophetic dreams and can talk to dolphins, stones, and seagulls. Her mother Pauline has the sight but it goes silent the day Sandy disappears. Jack Parsons runs the Lighthouse Estate — wealthy guests pay to hunt human beings on the grounds. His helpers Keg and Aldo source victims from Inverness while arguing about leather trousers. Parsons conducts rituals seeking an elemental he cannot raise. Hayley Anderson drives to the cliffs in a white dress in a trance, remembering gold and jewels and the voice of a god. At the village meeting Old Malc's ewes have given birth to giant eyeball creatures. Someone jumps from the Kessock Bridge. Parsons watches the press conference, sees Alex on TV, feels the elemental. A man called Adam Potter hears voices, sees Masher Fish in rivers controlled by traffic lights, was in love with Isabell. Sandy's ghost watches cars on Highland roads from the shadows of sorrowful trees. Two parts written. Multiple complete scenes in existence.</div>
-      <div class="entry-placement">November 2001. Morag is here. The Kessock Bridge. Alex collecting stones and listening to them. The voice in Sandy's head in lowercase italics. The double mode — Sandy crushed by a cow while the Wonder Stuff play on his car radio.</div>
+      <div class="entry-placement">November 2001. Morag is here. The Kessock Bridge. Alex collecting stones and listening to them. Sandy crushed by a cow while the Wonder Stuff play on his car radio.</div>
+    
+      <div class="entry-see-also"><a href="#the-edinburgh-novel-cormack-and-iona-unt">Cormack and Iona</a><a href="#six-million-dollar-monkey-novel-47000-wo">Six Million Dollar Monkey</a><a href="#morag-book-one-of-three-43000-words-part">Morag</a></div>
+    
+      <div class="entry-outward"><span>The Wonder Stuff — playing on Sandy's car radio when he dies</span></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="white-dress-on-a-clifftop" data-threads="universe">
     <div class="entry-meta">
       <div class="entry-date">2001–<br>2002</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="universe" title="cormack universe"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">White dress on a clifftop</div>
@@ -880,13 +953,16 @@ A single drop of blood dropped unnoticed onto the front of her silk, white dress
 
 Images raced through her head, random and confused — bright and noisy place with people laughing and drinking / nothing, a blank wall of light and a low bass hum / the brilliant colours of gold and jewels / the face of an angel / the voice of a god.</div>
       <div class="entry-placement">Hayley Anderson driving to the cliffs. From Faces in the Firth.</div>
+    
+      <div class="entry-see-also"><a href="#faces-in-the-firth-part-one-novel">Faces in the Firth</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="this-is-how-it-starts" data-threads="universe">
     <div class="entry-meta">
       <div class="entry-date">2001–<br>2002</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="universe" title="cormack universe"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">This is how it starts</div>
@@ -906,13 +982,16 @@ towards the emerging figure
 
 if he has horns, whose to say he doesn't have hooves?</div>
       <div class="entry-placement">Sandy at the bottom of the Firth. From Faces in the Firth.</div>
+    
+      <div class="entry-see-also"><a href="#faces-in-the-firth-part-one-novel">Faces in the Firth</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="you-can-sense-me-cant-you" data-threads="universe">
     <div class="entry-meta">
       <div class="entry-date">2001–<br>2002</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="universe" title="cormack universe"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">You can sense me, can't you?</div>
@@ -927,13 +1006,16 @@ I'm standing, bathed in the shadows of these sorrowful trees. I look out from th
 
 Enough. I've seen enough. On you go into your night. I'll go on into mine.</div>
       <div class="entry-placement">Sandy's ghost speaking to the occupants of a passing car on a Highland road. From the Part 2 outline of Faces in the Firth.</div>
+    
+      <div class="entry-see-also"><a href="#faces-in-the-firth-part-one-novel">Faces in the Firth</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="dark-tartan-moon" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">c. 2014</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Dark Tartan Moon</div>
@@ -983,13 +1065,16 @@ So be friends to your neighbours
 On their
 Dark tartan moon</div>
       <div class="entry-placement">The Forth Bridge. God is a bald woman. Scotland gets a new planet with fish and chip trees.</div>
+    
+      <div class="entry-see-also"><a href="#badgerman">Badgerman</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="mr-shredder" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2013</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Mr Shredder</div>
@@ -1001,13 +1086,16 @@ Where pinkies go / Hands surely follow / Then arms and necks / Your brain's swee
 
 So let the sleeping shredder lie / Never put your digits in / Let papers pile / It's not a sin / Just rip them up / And use the bin</div>
       <div class="entry-placement">The office shredder wants blood. Don't put your fingers in.</div>
+    
+      <div class="entry-see-also"><a href="#coffee-bean-blues">Coffee Bean Blues</a><a href="#badgerman">Badgerman</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="coffee-bean-blues" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2013</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Coffee Bean Blues</div>
@@ -1023,13 +1111,16 @@ Her Ma back at home / Felt a belly ache / The sky had received a new star
 
 Step away from the bean need immediately / Time's come / You're switching to tea</div>
       <div class="entry-placement">The bean misses her Ma. Her Ma felt a belly ache when the sky received a new star.</div>
+    
+      <div class="entry-see-also"><a href="#mr-shredder">Mr Shredder</a><a href="#badgerman">Badgerman</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="underneath-the-sky" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">c. 2008</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Underneath the Sky</div>
@@ -1040,14 +1131,17 @@ Blind spots behind / And to the side / What is it that lives / Straight above / 
 Between sinews so thin / And air so thick / It fuels our lungs / Helps us to lift / Our weary bones / Our bubbling brains / Our bags of fat / Whose steam escapes / Into the blind spots / Underneath the sky
 
 Guess what now? / Within that space / Are those who wonder / Hidden within their / Nomads in space / Shifting throng / If we just listen / We can hear their souls / Of souls thought lost / Of skin and bone / Long burnt to ash / All those long gone / There among those / Not yet at rest / Whisper on the wind / Lest we forget / Echoes calling / Across the years / Beyond goodbyes / Above our hearts / Underneath the sky</div>
-      <div class="entry-placement">The souls not yet at rest, just above the city. Written before Angels Over Edinburgh had a name.</div>
+      <div class="entry-placement">The souls not yet at rest, just above the city.</div>
+    
+      <div class="entry-see-also"><a href="#hummingbird">Hummingbird</a><a href="#morag-book-one-of-three-43000-words-part">Morag</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="birdman-of-haymarket" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">undated</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Birdman of Haymarket</div>
@@ -1062,26 +1156,32 @@ I grip my talons / To the stone / Bird brain thinks / I'll die alone / Claw my s
 Time has come / This clock has struck / As I fall / I count my luck / At least I'll know / At least I've flown / Tasted the air / Its sweetness brief / Destination is belief / From the gathering ghosts of grief
 
 When we die / If souls alight / Let them take wing / Soar tonight / Rising like your last days come / Join gathering flocks / And fly into the sun.</div>
-      <div class="entry-placement">Haymarket station clock. Wings furled by love, grown strong in loss. The Icarus engine again — at least he flew.</div>
+      <div class="entry-placement">Haymarket station clock. Wings furled by love, grown strong in loss. At least he flew.</div>
+    
+      <div class="entry-see-also"><a href="#destination-sun">Destination: Sun</a><a href="#to-the-top-of-the-spire">To the Top of the Spire</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="to-the-top-of-the-spire" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">undated</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">To the Top of the Spire</div>
       <div class="entry-handwritten">To the top of the spire / Claw my way / What a view / Lower my sights / Sweeping out across the city / Dancing lights / Singing sirens / Mix with the hearts that beat / In their warm wet cages</div>
       <div class="entry-placement">The city from above. Hearts in their warm wet cages.</div>
+    
+      <div class="entry-see-also"><a href="#birdman-of-haymarket">Birdman of Haymarket</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="why-are-all-these-whales-ending-up-on-th" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">undated</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Why Are All These Whales Ending Up on the Beach?</div>
@@ -1092,14 +1192,15 @@ Or are they psychic submariners / The seers of the sea / Who have seen what is c
 If love is the ocean / Sorrow the deep / Happiness the tides / Where does that leave me? / Controlled by the moon / Of all things to be / A lost lunar loon / Who howls at the sea?
 
 Spare a thought / For the whales / In their celestial home / As they splash down their tails / Thunder claps roar / As they pine for the sea / And ache like lost souls / Loose a deluge of tears / On us still below</div>
-      <div class="entry-placement">Funny about whales, then something else entirely in the middle.</div>
+      <div class="entry-placement">If love is the ocean / Sorrow the deep / Happiness the tides / Where does that leave me?</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="begin" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">c. 2004</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Begin</div>
@@ -1117,11 +1218,12 @@ Into the silence of the day</div>
       <div class="entry-placement">The quiet man, the broken man, the same day.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="to-the-ends-of-the-earth" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2004</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">To the Ends of the Earth</div>
@@ -1136,11 +1238,12 @@ I'll follow you to the ends of the Earth</div>
       <div class="entry-placement">March 2004. Everything you'd do without hesitation, for one person.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="stones" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2004</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Stones</div>
@@ -1160,13 +1263,18 @@ He was out of reach
 
 Your face is starting to fade</div>
       <div class="entry-placement">March 2004. Looking for a face in stones from the river.</div>
+    
+      <div class="entry-see-also"><a href="#faces-in-the-firth-part-one-novel">Faces in the Firth</a></div>
+    
+      <div class="entry-outward"><span>Jeff Buckley — reflected in the moonlight, way down deep</span></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="something-about-you" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2004</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Something About You</div>
@@ -1183,11 +1291,12 @@ There is something about you that isn't off this world</div>
       <div class="entry-placement">Someone with the universe behind their eyes.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="weight" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2004</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Weight</div>
@@ -1209,11 +1318,12 @@ For someone else's scene</div>
       <div class="entry-placement">March 2004. Things you can't lose however hard you try.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="hummingbird" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2004</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Hummingbird</div>
@@ -1231,13 +1341,18 @@ Her legs are broken / Days since she last fed
 Must return to fields of green and blue
 Rise one last time / As only hummingbirds do</div>
       <div class="entry-placement">April 2004. Found out after writing this that some people think of hummingbirds as angels. The lyrics had already got there.</div>
+    
+      <div class="entry-see-also"><a href="#underneath-the-sky">Underneath the Sky</a></div>
+    
+      <div class="entry-outward"><span>Hummingbirds as personal angels — found after writing this</span></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="changes-everything" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2004</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Changes Everything</div>
@@ -1254,13 +1369,16 @@ In silence I hear you sing
 All my secrets spoken / Every bone I've broken
 In silence I hear you sing</div>
       <div class="entry-placement">May 2004. A machine inside a metal skin that starts to feel something.</div>
+    
+      <div class="entry-see-also"><a href="#short-stories-ready-for-covers-and-forma">Short stories</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="destination-sun" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2004</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Destination: Sun</div>
@@ -1286,13 +1404,16 @@ Our wings are starting to melt
 
 On the surface of the sun there are no shadows</div>
       <div class="entry-placement">April 2004. Last ship leaving Earth. Kenny making sandcastles on Planet Cheesy Puff while the Earth burned.</div>
+    
+      <div class="entry-see-also"><a href="#birdman-of-haymarket">Birdman of Haymarket</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="half-the-man-twice-the-size" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2003</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Half the Man, Twice the Size</div>
@@ -1314,11 +1435,12 @@ We'd only drop them on their fragile egg-shell little minds</div>
       <div class="entry-placement">March 2003. Ending up somewhere and not being sure how.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="when-our-skies-no-longer-fade" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2003</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">When Our Skies No Longer Fade</div>
@@ -1339,11 +1461,12 @@ When our skies no longer fade</div>
       <div class="entry-placement">February 2003. Fires like warning beacons for our love.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="less-than-home" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2003</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Less than Home</div>
@@ -1375,11 +1498,12 @@ sets off sparkles on the sea</div>
       <div class="entry-placement">January 2003. A man sitting on a street who has a name nobody uses.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="supernatural-howl" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">c. 2003</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Supernatural Howl</div>
@@ -1401,14 +1525,15 @@ Best go quietly
 I'm in hiding — from the werewolves of love
 Took a sailing ship to the southern ice cap
 Lived in a frozen city of glass</div>
-      <div class="entry-placement">The werewolves of love. Still a strong title.</div>
+      <div class="entry-placement">The werewolves of love.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="curtain-of-music" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">c. 2003</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Curtain of Music</div>
@@ -1429,11 +1554,12 @@ That desert her</div>
       <div class="entry-placement">Walking through a curtain of music towards something.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="remember-when" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">c. 2003</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Remember When</div>
@@ -1444,14 +1570,15 @@ Was that gunfire somewhere?
 Did a cloudburst somewhere?
 Did rivers start to rise?
 Did burning rocks just scream across the sky?</div>
-      <div class="entry-placement">A quiet memory and then the world coming apart in the same breath.</div>
+      <div class="entry-placement">Was that gunfire somewhere?</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="badgerman" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">c. 2003</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Badgerman</div>
@@ -1465,13 +1592,16 @@ Has a special odour that attracts criminals
 Specialises in fighting sheep-based crime
 Poster caption: a new superhero has arisen ... and he smells of haggis</div>
       <div class="entry-placement">A superhero universe built around Dounray and sheep-based crime. Collaborative with Kenny.</div>
+    
+      <div class="entry-see-also"><a href="#coffee-bean-blues">Coffee Bean Blues</a><a href="#mr-shredder">Mr Shredder</a><a href="#dark-tartan-moon">Dark Tartan Moon</a></div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="sandstone-house" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">c. 2003</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-fragment">fragment</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Sandstone House</div>
@@ -1483,14 +1613,15 @@ Softest whisper makes me scream
 But silently
 
 I won't end without hope</div>
-      <div class="entry-placement">The house you can see but not enter. Last line still holds.</div>
+      <div class="entry-placement">The house you can see but not enter. I won't end without hope.</div>
     </div>
   </div>
-<div class="entry">
+<div class="entry" id="cant-quite-see-it-yet" data-threads="lyrics">
     <div class="entry-meta">
       <div class="entry-date">2000</div>
       <div class="entry-date-added">added<br>May 2026</div>
       <span class="entry-tag tag-music">music</span>
+    <div class="entry-threads"><span class="thread-dot" data-thread="lyrics" title="lyrics & poems"></span></div>
     </div>
     <div class="entry-content">
       <div class="entry-title">Can't Quite See It Yet</div>
@@ -1507,10 +1638,9 @@ I'll show you the way
 
 Once in a dream I met myself
 A thousand years from now</div>
-      <div class="entry-placement">June 2000. Meeting your future self in a dream — going both directions at once.</div>
+      <div class="entry-placement">June 2000. Meeting your future self in a dream.</div>
     </div>
   </div>
-</div>
 <!-- ── END ARCHIVE ── -->
 
 <footer>
@@ -1521,6 +1651,30 @@ A thousand years from now</div>
     <a href="https://signalscott.substack.com" target="_blank" style="color:var(--muted);text-decoration:none;letter-spacing:0.18em;font-size:5.5pt;text-transform:uppercase;">newsletter</a>
   </span>
 </footer>
+
+
+<script>
+// Thread filter
+document.querySelectorAll('.thread-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.thread-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const thread = this.dataset.thread;
+    document.querySelectorAll('.entry').forEach(entry => {
+      if (thread === 'all') {
+        entry.classList.remove('thread-hidden');
+      } else {
+        const threads = (entry.dataset.threads || '').split(' ');
+        if (threads.includes(thread)) {
+          entry.classList.remove('thread-hidden');
+        } else {
+          entry.classList.add('thread-hidden');
+        }
+      }
+    });
+  });
+});
+</script>
 
 </body>
 </html>
